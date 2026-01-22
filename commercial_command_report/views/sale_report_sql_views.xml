@@ -1,0 +1,72 @@
+<odoo>
+    <record id="view_sale_report_sql_tree" model="ir.ui.view">
+        <field name="name">sale.report.sql.tree</field>
+        <field name="model">sale.report.sql</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="order_name"/>
+                <field name="date_order"/>
+                <field name="partner_id"/>
+                <field name="state_id"/>
+                <field name="user_id"/>
+                <field name="categ_id"/>
+                <field name="product_id"/>
+                <field name="product_uom_qty"/>
+                <field name="list_price" sum="Precio de Venta"/>
+                <field name="price_subtotal" sum="SubTotal"/>
+                <field name="price_total" sum="Total"/>
+                <field name="margin"/>
+                <field name="sales_target"/>
+                <field name="conversion_rate" widget="percentage"/>
+                <field name="opportunity_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_sale_report_sql_search" model="ir.ui.view">
+        <field name="name">sale.report.sql.search</field>
+        <field name="model">sale.report.sql</field>
+        <field name="arch" type="xml">
+            <search string="Buscar cuadro de mando comercial">
+                <!-- Campos de búsqueda -->
+                <field name="order_name"/>
+                <field name="partner_id"/>
+                <field name="user_id"/>
+                <field name="state_id"/>
+                <field name="categ_id"/>
+                <field name="product_id"/>
+
+                <!-- Filtro por fecha -->
+                <filter string="Hoy" name="today"
+                    domain="[('date_order','&gt;=', context_today())]"/>
+                <filter string="Este Mes" name="this_month"
+                    domain="[('date_order','&gt;=', context_today().strftime('%%Y-%%m-01'))]"/>
+
+                <!-- Agrupaciones -->
+                <group expand="1" string="Agrupar por">
+                    <filter string="Venta" name="group_partner" context="{'group_by':'order_name'}"/>
+                    <filter string="Cliente" name="group_partner" context="{'group_by':'partner_id'}"/>
+                    <filter string="Vendedor" name="group_user" context="{'group_by':'user_id'}"/>
+                    <filter string="Zona" name="group_state" context="{'group_by':'state_id'}"/>
+                    <filter string="Categoría" name="group_category" context="{'group_by':'categ_id'}"/>
+                    <filter string="Fecha" name="group_date" context="{'group_by':'date_order'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sale_report_sql" model="ir.actions.act_window">
+        <field name="name">Cuadro de mando comercial</field>
+        <field name="res_model">sale.report.sql</field>
+        <field name="view_mode">list,pivot,graph</field>
+        <field name="context">{'group_by': ['date_order:month', 'user_id']}</field>
+        <field name="search_view_id" ref="view_sale_report_sql_search"/>
+    </record>
+
+    <menuitem id="menu_sale_report_sql_root"
+              name="Cuadro de mando comercial"
+              parent="sale.menu_sale_report"
+              sequence="50"
+              action="action_sale_report_sql"/>
+</odoo>
+

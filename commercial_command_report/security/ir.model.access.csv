@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sale_report_sql_user,access.sale.report.sql.user,model_sale_report_sql,base.group_user,1,0,0,0
+access_sale_report_sql_manager,access.sale.report.sql.manager,model_sale_report_sql,base.group_system,1,0,0,0
