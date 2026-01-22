@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+  <record id="view_account_payment_form_inherit_coupon" model="ir.ui.view">
+    <field name="name">account.payment.form.inherit.coupon</field>
+    <field name="model">account.payment</field>
+    <field name="inherit_id" ref="account.view_account_payment_form" />
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='journal_id']" position="after">
+        <field name="is_bank_journal" invisible="1"/>
+      </xpath>
+      <xpath expr="//page[@name='withholdings_page']" position="after">
+        <page string="Cupones" name="coupons_page" invisible="[('journal_id.type','!=','credit')]">
+          <field name="payment_coupon_ids" >
+            <list string="Cupones de Pago">
+              <field name="number_card" />
+              <field name="expiration_date" />
+              <field name="amount_coupon" />
+              <field name="partner_id" />
+              <field name="quantity_coupon" />
+              <field name="coupon_number" />
+              <field name="approval_code" />
+              <field name="date_coupon" />
+            </list>
+          </field>
+        </page>
+      </xpath>
+      <xpath expr="//page[@name='coupons_page']" position="after">
+        <page string="Cheques" name="checks_page" invisible="[('is_bank_journal','=',False)]">
+          <field name="payment_check_ids">
+            <list string="Cheques de Pago Diferido">
+              <field name="number" />
+              <field name="date" />
+              <field name="payment_date" />
+              <field name="term_days" />
+              <field name="amount" />
+              <field name="endorsable" />
+              <field name="direct" />
+              <field name="electronic" />
+              <field name="drawer_document_type" />
+              <field name="drawer_document_number" />
+            </list>
+          </field>
+        </page>
+      </xpath>
+    </field>
+  </record>
+</odoo>

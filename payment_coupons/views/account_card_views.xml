@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+  <record id="view_account_card_form_inherit_coupon" model="ir.ui.view">
+    <field name="name">account.card.form.inherit.coupon</field>
+    <field name="model">account.card</field>
+    <field name="inherit_id" ref="card_installment.account_card_form" />
+    <field name="arch" type="xml">
+      <xpath expr="//group[1]" position="replace">
+        <group>
+          <group>
+            <label for="payment_days" />
+            <div class="d-flex">
+              <field name="payment_days" />
+              <span>días</span>
+            </div>
+          </group>
+          <group>
+            <field name="company_id" groups="base.group_multi_company" />
+          </group>
+        </group>
+      </xpath>
+    </field>
+  </record>
+</odoo>
