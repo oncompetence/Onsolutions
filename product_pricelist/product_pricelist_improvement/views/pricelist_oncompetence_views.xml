@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <record id="product_pricelist_item_tree_custom" model="ir.ui.view">
+    <field name="name">product.pricelist.item.tree.custom</field>
+    <field name="model">product.pricelist.item</field>
+    <field name="arch" type="xml">
+      <list string="Lista de precios Oncompetence" editable="bottom" class="tree_hide_new_button">
+        <header>
+          <button name="action_create_new_pricelist" 
+                string="Nuevo" 
+                type="object" 
+                class="btn-primary"
+                display="always"/>
+        </header>
+        <field name="pricelist_id" />
+        <field name="currency_id" optional="hide" />
+        <field name="applied_on" string="Aplicar en" readonly="0" />
+        <field name="product_tmpl_id" string="Producto" required="applied_on == '1_product'"
+          readonly="applied_on == '2_product_category'" />
+        <field name="product_id" string="Variante" required="applied_on == '0_product_variant'"
+          readonly="applied_on == '2_product_category'" />
+        <field name="categ_id" string="Categoría" readonly="applied_on != '2_product_category'"
+          required="applied_on == '2_product_category'" />
+        <field name="name" string="Producto aplicable" readonly="1" />
+        <field name="standard_price" readonly="1" />
+        <field name="compute_price" string="Regla de calculo" readonly="0" />
+        <field name="base" required="compute_price == 'formula'"
+          readonly="compute_price != 'formula'" />
+        <field name="price" string="Precio" readonly="1" />
+        <field name="percent_price" string="Porcentaje de precio (%)"
+          required="compute_price == 'percentage'" readonly="compute_price != 'percentage'" />
+        <field name="fixed_price" required="compute_price == 'fixed'"
+          readonly="compute_price != 'fixed'" />
+        <field name="price_discount" string="Descuento (%)" required="compute_price == 'formula' and (base == 'pricelist' or base == 'list_price')"
+          readonly="not (compute_price == 'formula' and (base == 'pricelist' or base == 'list_price'))" />
+        <field name="price_markup" required="base == 'standard_price'"
+          readonly="base != 'standard_price'"
+          string="Margen de ganancia (%)" />
+        <field name="base_pricelist_id" required="(compute_price == 'percentage') or (compute_price == 'formula' and base == 'pricelist')"
+          readonly="not ((compute_price == 'percentage') or (compute_price == 'formula' and base == 'pricelist'))"
+        />
+        <field name="price_round" required="compute_price == 'formula'"
+          readonly="compute_price != 'formula'" />
+        <field name="price_surcharge" required="compute_price == 'formula'"
+          readonly="compute_price != 'formula'" />
+        <field name="price_min_margin" required="compute_price == 'formula'"
+          readonly="compute_price != 'formula'" />
+        <field name="price_max_margin" required="compute_price == 'formula'"
+          readonly="compute_price != 'formula'" />
+        <field name="min_quantity" readonly="0" optional="hide" />
+        <field name="date_start" readonly="0" optional="hide" />
+        <field name="date_end" readonly="0" optional="hide" />
+      </list>
+    </field>
+  </record>
+
+  <record id="product_pricelist_item_search_custom" model="ir.ui.view">
+    <field name="name">product.pricelist.item.search.custom</field>
+    <field name="model">product.pricelist.item</field>
+    <field name="arch" type="xml">
+      <search string="Buscar Reglas de Precio">
+        <field name="pricelist_id"/>
+        <field name="product_tmpl_id"/>
+        <field name="product_id"/>
+        
+        <group expand="1" string="Agrupar por">
+            <filter string="Lista de Precios" name="groupby_pricelist" context="{'group_by': 'pricelist_id'}"/>
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <record id="action_product_pricelist_item_custom" model="ir.actions.act_window">
+    <field name="name">Lista de precios Oncompetence</field>
+    <field name="res_model">product.pricelist.item</field>
+    <field name="view_mode">list</field>
+    <field name="view_id" ref="product_pricelist_item_tree_custom" />
+    <field name="search_view_id" ref="product_pricelist_item_search_custom"/>
+    <field name="context">{'search_default_groupby_pricelist': 1}</field>
+  </record>
+
+  <record id="view_product_pricelist_form_minimal_popup" model="ir.ui.view">
+    <field name="name">product.pricelist.form.minimal.popup</field>
+    <field name="model">product.pricelist</field>
+    <field name="arch" type="xml">
+        <form string="Nueva Lista de Precios">
+            <sheet>
+                <div class="oe_title">
+                    <label for="name" class="oe_edit_only"/>
+                    <h1><field name="name" placeholder="Ej. Lista Mayorista 2026"/></h1>
+                </div>
+                <group>
+                    <group>
+                        <field name="currency_id" options="{'no_create': True}"/>
+                        <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                    </group>
+                    <group>
+                        <field name="active" invisible="1"/> 
+                    </group>
+                </group>
+                </sheet>
+            <footer>
+                <button string="Crear Lista" special="save" class="btn-primary"/>
+                <button string="Descartar" special="cancel" class="btn-secondary"/>
+            </footer>
+        </form>
+    </field>
+  </record>
+
+  <menuitem id="menu_product_pricelist_item_custom"
+    name="Lista de precios Oncompetence"
+    parent="sale.product_menu_catalog"
+    action="action_product_pricelist_item_custom"
+    sequence="40" />
+</odoo>
