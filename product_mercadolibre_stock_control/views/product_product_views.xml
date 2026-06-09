@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_product_form_inherit_meli_stock" model="ir.ui.view">
+        <field name="name">product.product.form.inherit.meli.stock</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//group[@name='inventory']" position="inside">
+                <group string="Control MercadoLibre" name="meli_control">
+                    <field name="min_publication_qty" string="Stock Mínimo Publicación"/>
+                </group>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

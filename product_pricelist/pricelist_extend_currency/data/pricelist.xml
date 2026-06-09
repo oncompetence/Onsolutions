@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<odoo>
-
-    <record id="pricelist_usd" model="product.pricelist">
-        <field name="name">Lista de precios USD</field>
-        <field name="currency_id" ref="base.USD" />
-    </record>
-
-</odoo>
