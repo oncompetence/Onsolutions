@@ -1,0 +1,20 @@
+<odoo>
+    <record id="view_payslip_form_firma" model="ir.ui.view">
+        <field name="name">hr.payslip.firma</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
+                <page string="Firma de Conformidad" name="firma_conformidad">
+                    <group name="firma_conformidad_group">
+                        <group name="firma_conformidad_group_fields">
+                            <field name="signed_date"/>
+                            <field name="employee_signature" widget="image"/>
+                        </group>
+                        <group name="firma_conformidad_group_2"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

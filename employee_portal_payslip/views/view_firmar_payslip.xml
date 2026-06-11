@@ -1,0 +1,39 @@
+<odoo>
+    <!-- Vista -->
+    <record id="view_firmar_payslip_form_custom" model="ir.ui.view">
+        <field name="name">hr.payslip.firma.form</field>
+        <field name="model">hr.payslip</field>
+        <field name="priority" eval="50"/>
+        <field name="arch" type="xml">
+            <form string="Firmar Recibo">
+                <sheet>
+                    <group>
+                        <field name="employee_id" readonly="1"/>
+                        <field name="signed_date" readonly="1"/>
+                        <field name="employee_signature" widget="signature"/>
+                        <button string="Guardar Firma" type="object" name="action_guardar_firma_y_redirigir" class="btn-primary"/>
+                        <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción -->
+    <record id="action_firmar_payslip_custom" model="ir.actions.act_window">
+        <field name="name">Firmar Recibo</field>
+        <field name="res_model">hr.payslip</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_firmar_payslip_form_custom"/>
+        <field name="target">current</field>
+    </record>
+
+    <!-- Menú -->
+    <menuitem 
+        id="menu_payslip_firma_portal"
+        name="Firmar Recibo desde Portal"
+        parent="hr_work_entry_enterprise.menu_hr_payroll_configuration"
+        action="action_firmar_payslip_custom"
+        sequence="100"
+    />
+</odoo>
