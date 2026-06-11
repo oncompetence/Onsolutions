@@ -1,0 +1,29 @@
+<odoo>
+    <record id="view_product_pricelist_item_tree_inherit_replenishment" model="ir.ui.view">
+        <field name="name">product.pricelist.item.tree.inherit.replenishment</field>
+        <field name="model">product.pricelist.item</field>
+        <field name="inherit_id" ref="product_pricelist_improvement.product_pricelist_item_tree_custom"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="show_replenishment_alert" column_invisible="1"/>
+            </xpath>
+
+            <xpath expr="//list" position="attributes">
+                <attribute name="decoration-warning">show_replenishment_alert</attribute>
+                <attribute name="decoration-bf">show_replenishment_alert</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='date_end']" position="after">
+                <button name="action_open_update_cost_wizard"
+                        type="object"
+                        string="Act. Costo"
+                        icon="fa-refresh"
+                        class="text-warning"
+                        invisible="not show_replenishment_alert"
+                        title="El costo de reposición difiere del costo contable. Click para actualizar."/>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
