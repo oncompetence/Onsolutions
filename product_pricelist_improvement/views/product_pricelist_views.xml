@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <record id="product_price_history_form" model="ir.ui.view">
+    <field name="name">product.price.history.form</field>
+    <field name="model">product.pricelist</field>
+    <field name="inherit_id" ref="product.product_pricelist_view" />
+    <field name="arch" type="xml">
+      <xpath expr="//page[@name='pricelist_rules']" position="attributes">
+        <attribute name="invisible">1</attribute>
+      </xpath>
+      <xpath expr="//page[@name='pricelist_rules']" position="after">
+        <page name="pricelist_without_wizard" string="Normas de precios">
+          <field name="item_ids" nolabel="1" context="{'default_base':'list_price'}"
+            widget="one2many_list">
+            <list string="Reglas de precios" editable="bottom">
+              <field name="applied_on" string="Aplicar en" readonly="0"/>
+              <field name="product_tmpl_id" string="Producto"
+                readonly="applied_on == '2_product_category'" />
+              <field name="product_id" string="Variante"
+                readonly="applied_on == '2_product_category'" />
+              <field name="categ_id" string="Categoría" readonly="applied_on != '2_product_category'" />
+              <field name="name" string="Aplicable en" readonly="1" />
+              <field name="standard_price" readonly="1" />
+              <field name="compute_price" string="Regla de calculo" readonly="0" />
+              <field name="base" readonly="compute_price != 'formula'" />
+              <field name="price" string="Precio" readonly="1" />
+              <field name="percent_price" readonly="compute_price != 'percentage'" />
+              <field name="fixed_price" readonly="compute_price != 'fixed'" />
+              <field name="price_discount" string="Descuento"
+                readonly="not (compute_price == 'formula' and (base == 'pricelist' or base == 'list_price'))" />
+              <field name="base_pricelist_id"
+                readonly="not ((compute_price == 'percentage') or (compute_price == 'formula' and base == 'pricelist'))"
+                />
+              <!-- readonly="base != 'pricelist'"  -->
+              <field name="price_round" readonly="compute_price != 'formula'" />
+              <field name="price_surcharge" readonly="compute_price != 'formula'" />
+              <field name="price_min_margin" readonly="compute_price != 'formula'" />
+              <field name="price_max_margin" readonly="compute_price != 'formula'" />
+              <field name="min_quantity" readonly="0"/>
+              <field name="date_start" readonly="0"/>
+              <field name="date_end" readonly="0"/>
+            </list>
+          </field>
+        </page>
+      </xpath>
+      <xpath expr="//page[@name='pricelist_without_wizard']" position="after">
+        <page name="price_history" string="Historial">
+          <field name="product_price_history_ids" nolabel="1" widget="one2many_list">
+            <list string="Historial de precios de productos" create="false">
+              <field name="product_id" />
+              <field name="previous_price" />
+              <field name="current_price" />
+              <field name="previous_cost" />
+              <field name="current_cost" />
+              <field name="user_id" />
+              <field name="update_date" />
+              <field name="origin" />
+            </list>
+          </field>
+        </page>
+      </xpath>
+
+      <xpath expr="//header" position="inside">
+        <button name="action_update_cost"
+          string="Actualizar costos"
+          type="object"
+          class="btn-primary"
+        />
+
+        <!-- <button name="action_update_prices"
+          string="Actualizar $ OV"
+          type="object"
+          class="btn-primary"
+          /> -->
+      </xpath>
+    </field>
+  </record>
+</odoo>
