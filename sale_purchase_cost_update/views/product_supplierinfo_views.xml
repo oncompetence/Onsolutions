@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_supplierinfo_list_inherit_cost_update" model="ir.ui.view">
+        <field name="name">product.supplierinfo.list.inherit.cost.update</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_tree_view"/>
+        <field name="arch" type="xml">
+
+            <!-- Agrego un bloque header dentro del list para inyectar
+                 el botón de acción masiva con display="always",
+                 así queda visible sin necesidad de seleccionar registros -->
+            <xpath expr="//list" position="inside">
+                <header>
+                    <button
+                        name="action_push_price_to_purchase_orders"
+                        type="object"
+                        class="btn-info"
+                        string="Propagar Precios a Órdenes de Compra"
+                        confirm="¡ATENCIÓN! ¿Está seguro que desea forzar la actualización masiva de precios en todas las órdenes de compra abiertas para las tarifas seleccionadas? Esta acción sobrescribirá los precios en las líneas afectadas de forma irreversible."
+                        display="always"
+                    />
+                </header>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

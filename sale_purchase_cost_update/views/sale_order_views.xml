@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sale_order_form_inherit_cost_update" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.cost.update</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//header/button[1]" position="before">
+                <button
+                    name="action_update_costs_and_prices"
+                    type="object"
+                    class="btn-info"
+                    string="Actualizar Costos y Precios"
+                    confirm="¿Está seguro que desea sincronizar el costo contable de los productos y recalcular los precios de todas las líneas de este documento?"
+                    invisible="state not in ['draft', 'sent']"
+                />
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

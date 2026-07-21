@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="purchase_order_form_inherit_cost_update" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit.cost.update</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//header/button[1]" position="before">
+                <button
+                    name="action_update_prices_from_supplier"
+                    type="object"
+                    class="btn-info"
+                    string="Actualizar Precios del Proveedor"
+                    confirm="¿Está seguro que desea buscar las últimas tarifas de los proveedores y sobrescribir los precios de todas las líneas de esta orden?"
+                    invisible="state not in ['draft', 'sent', 'purchase']"
+                />
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
