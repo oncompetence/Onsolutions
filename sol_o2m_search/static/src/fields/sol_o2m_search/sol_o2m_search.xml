@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <!--
+        Heredamos "web.X2ManyField" igual que el widget original (esa parte
+        del análisis era correcta: sol_o2m no pisa el template en ningún
+        nivel de su cadena de herencia, así que sigue siendo este).
+
+        A diferencia del widget original, usamos position="before" en vez
+        de "replace": el input de búsqueda se agrega ARRIBA de los botones
+        de control (Agregar línea / Agregar sección / Agregar nota), no en
+        reemplazo. Esos botones son imprescindibles en sale.order.line, así
+        que no podemos hacer desaparecer ese bloque.
+    -->
+    <t t-name="SolO2mSearchTemplate" t-inherit="web.X2ManyField"
+       t-inherit-mode="primary" owl="1">
+        <t t-if="displayControlPanelButtons" position="before">
+            <div class="w-100 mb-2">
+                <div class="position-relative w-100">
+                    <i class="fa fa-search position-absolute sol_o2m_search_icon"></i>
+                    <input type="text"
+                           class="o_input w-100 sol_o2m_search_input"
+                           placeholder="Buscar..."
+                           t-ref="search_keyword"
+                           t-on-keyup="onInputKeyUp"/>
+                </div>
+            </div>
+        </t>
+    </t>
+</templates>
