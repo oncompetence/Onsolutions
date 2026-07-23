@@ -1,23 +1,22 @@
+# -*- coding: utf-8 -*-
 {
-    "name": "Sale Order Line Search (sol_o2m)",
-    "version": "19.0.1.0.0",
-    "summary": "Agrega un buscador visual a las líneas de pedido de venta sin romper "
-                "la lógica especializada de sol_o2m (combos, secciones y notas).",
-    "description": """
-Este módulo NO reemplaza el widget sol_o2m de sale.order.line.
-Extiende SaleOrderLineOne2Many (definido en el core de sale) sumándole
-un input de búsqueda en vivo sobre las filas ya renderizadas, sin tocar
-ListRenderer, sin tocar el template de combos/secciones/notas y sin
-sacar los botones "Agregar línea / sección / nota".
+    "name": "Sale Order Line Search & Report Sort",
+    "version": "19.0.2.1.0",
+    "summary": "Buscador y orden visual (alfabético/categoría) en formulario y PDF para pedidos de venta.",
+    "description": """ 
+Este módulo extiende SaleOrderLineOne2Many sumándole:
+- Input de búsqueda en vivo sobre las filas renderizadas.
+- Selector de orden VISUAL (Manual / Alfabético / Categoría) integrado.
+- Aplicación de este mismo orden visual al momento de imprimir el PDF del pedido.
 
-Reemplaza al módulo one2many_search_widget para el caso puntual de
-order_line en sale.order: ese módulo reemplazaba el widget completo por
-un X2ManyField genérico, perdiendo la lógica de sol_o2m (rompía al
-agregar productos que disparan lógica de combo, por ejemplo).
+En ningún caso se toca el campo `sequence` real ni se rompen las secciones nativas o los productos tipo Combo.
     """,
     "category": "Sales",
-    "author": "Uriel / OnCompetence",
+    "author": "Gonzalo Fonseca",
     "depends": ["sale"],
+    "data": [
+        "views/sale_order_views.xml",
+    ],
     "assets": {
         "web.assets_backend": [
             "sol_o2m_search/static/src/fields/sol_o2m_search/*.js",

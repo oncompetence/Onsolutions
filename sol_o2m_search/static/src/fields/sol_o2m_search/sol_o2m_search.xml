@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
-    <!--
-        Heredamos "web.X2ManyField" igual que el widget original (esa parte
-        del análisis era correcta: sol_o2m no pisa el template en ningún
-        nivel de su cadena de herencia, así que sigue siendo este).
-
-        A diferencia del widget original, usamos position="before" en vez
-        de "replace": el input de búsqueda se agrega ARRIBA de los botones
-        de control (Agregar línea / Agregar sección / Agregar nota), no en
-        reemplazo. Esos botones son imprescindibles en sale.order.line, así
-        que no podemos hacer desaparecer ese bloque.
-    -->
     <t t-name="SolO2mSearchTemplate" t-inherit="web.X2ManyField"
        t-inherit-mode="primary" owl="1">
+        <!-- Aquí posiciono nuestro DOM customizado antes de los botones estándar -->
         <t t-if="displayControlPanelButtons" position="before">
-            <div class="w-100 mb-2">
-                <div class="position-relative w-100">
+            <div class="d-flex flex-wrap align-items-center gap-2 w-100 mb-2"
+                 t-ref="sol_o2m_search_root">
+                <div class="position-relative flex-grow-1 sol_o2m_search_input_wrap">
                     <i class="fa fa-search position-absolute sol_o2m_search_icon"></i>
                     <input type="text"
                            class="o_input w-100 sol_o2m_search_input"
@@ -23,6 +14,13 @@
                            t-ref="search_keyword"
                            t-on-keyup="onInputKeyUp"/>
                 </div>
+                <select class="o_input sol_o2m_search_order_select"
+                        t-att-value="orderState.criterion"
+                        t-on-change="onOrderCriterionChange">
+                    <option value="manual">Orden manual</option>
+                    <option value="alphabetical">Orden alfabético</option>
+                    <option value="category">Orden por categoría</option>
+                </select>
             </div>
         </t>
     </t>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_inherit_sol_o2m_search" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.sol.o2m.search</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            
+            <!-- Aquí inyecto el campo del criterio visual -->
+            <xpath expr="//field[@name='order_line']" position="before">
+                <field name="line_display_order" invisible="1"/>
+            </xpath>
+            
+            <!-- Aquí fuerzo que los campos técnicos viajen al JS para armar combos correctamente -->
+            <xpath expr="//field[@name='order_line']/list/field[@name='product_id']" position="before">
+                <field name="product_type" column_invisible="True"/>
+                <field name="combo_item_id" column_invisible="True"/>
+            </xpath>
+
+            
+        </field>
+    </record>
+</odoo>

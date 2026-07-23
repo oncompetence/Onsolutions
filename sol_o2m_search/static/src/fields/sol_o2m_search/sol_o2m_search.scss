@@ -1,6 +1,6 @@
-// Mismas reglas visuales que .one2many_search_input / .one2many_search_icon
-// del widget original, renombradas para no pisar esas clases si el módulo
-// one2many_search_widget sigue instalado y en uso en otras vistas.
+.sol_o2m_search_input_wrap {
+    min-width: 200px;
+}
 
 .sol_o2m_search_input {
     border-radius: 10px !important;
@@ -20,4 +20,10 @@
     color: currentColor;
     opacity: 0.5;
     pointer-events: none;
+}
+
+.sol_o2m_search_order_select {
+    border-radius: 10px !important;
+    height: 35px !important;
+    max-width: 220px;
 }
