@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_inherit_integration_missing" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.integration.missing</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            
+            <!-- Aquí inyecto las pestañas condicionales al final del notebook -->
+            <xpath expr="//notebook" position="inside">
+                
+                <page string="Faltantes TN" name="page_tn_not_found" invisible="not tn_not_found">
+                    <field name="tn_not_found">
+                        <list editable="bottom">
+                            <field name="sku"/>
+                            <field name="quantity"/>
+                            <field name="price"/>
+                        </list>
+                    </field>
+                </page>
+
+                <page string="Faltantes ML" name="page_ml_not_found" invisible="not not_found_ids">
+                    <field name="not_found_ids">
+                        <list editable="bottom">
+                            <field name="sku"/>
+                            <field name="quantity"/>
+                            <field name="price"/>
+                        </list>
+                    </field>
+                </page>
+
+            </xpath>
+            
+        </field>
+    </record>
+</odoo>

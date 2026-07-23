@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_not_found_user,product.not.found.user,model_product_not_found,base.group_user,1,1,1,1
+access_tn_product_not_found_user,tn.product.not.found.user,model_tn_product_not_found,base.group_user,1,1,1,1
