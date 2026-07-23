@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_inherit_outdated_price" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.outdated.price</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <!-- Inyectamos el banner justo antes de la hoja principal del formulario -->
+            <xpath expr="//sheet" position="before">
+                <div class="alert alert-warning w-100 d-flex align-items-center gap-1 mb-3" 
+                     role="alert" 
+                     invisible="not is_outdated_price or state not in ['draft', 'sent']">
+                    <strong>¡Atención!</strong> Se actualizó el costo/precio de uno o más productos de este presupuesto.
+                    <!-- Botón que llama a la acción nativa de Odoo para recalcular -->
+                    <button name="action_update_prices" 
+                            type="object" 
+                            string="Actualizar precios de venta" 
+                            class="btn btn-warning btn-sm ms-3"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
